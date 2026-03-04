@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 750px;
+                 background-color: #222222;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "orange", "font": {"color": "white"}, "id": "Milano Ops", "label": "Milano Ops", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "OlympicsNewsNow", "label": "OlympicsNewsNow", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "WinterSportsFR", "label": "WinterSportsFR", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "AlpsReporter", "label": "AlpsReporter", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "OlympicsHistory", "label": "OlympicsHistory", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "PistePatrol", "label": "PistePatrol", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "AlpineDaily", "label": "AlpineDaily", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "Volunteer_Mimi", "label": "Volunteer_Mimi", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "SkiKing_FR", "label": "SkiKing_FR", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "IceDancePro", "label": "IceDancePro", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "BiathlonFanatic", "label": "BiathlonFanatic", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "CortinaLover", "label": "CortinaLover", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "Snowboard_Sam", "label": "Snowboard_Sam", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "HockeyDad99", "label": "HockeyDad99", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "SpeedSkater_NL", "label": "SpeedSkater_NL", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "MedalTracker", "label": "MedalTracker", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "BobsleighTeamGER", "label": "BobsleighTeamGER", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "SwissSkiing", "label": "SwissSkiing", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "FigureSkating_JP", "label": "FigureSkating_JP", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "CurlingRocks", "label": "CurlingRocks", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "LugeMaster", "label": "LugeMaster", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "TicketSeeker", "label": "TicketSeeker", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "SkiJump_POL", "label": "SkiJump_POL", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "Freestyle_US", "label": "Freestyle_US", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "WinterMagic", "label": "WinterMagic", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "IceHockey_FIN", "label": "IceHockey_FIN", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "GondolaGuy", "label": "GondolaGuy", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "ShortTrack_KR", "label": "ShortTrack_KR", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "SnowStormer", "label": "SnowStormer", "shape": "dot"}, {"color": "lightblue", "font": {"color": "white"}, "id": "Beijing2022Vet", "label": "Beijing2022Vet", "shape": "dot"}]);
+                  edges = new vis.DataSet([{"from": "Milano Ops", "title": "FOLLOWS", "to": "OlympicsNewsNow"}, {"from": "Milano Ops", "title": "FOLLOWS", "to": "WinterSportsFR"}, {"from": "Milano Ops", "title": "FOLLOWS", "to": "AlpsReporter"}, {"from": "Milano Ops", "title": "FOLLOWS", "to": "OlympicsHistory"}, {"from": "Milano Ops", "title": "FOLLOWS", "to": "PistePatrol"}, {"from": "Milano Ops", "title": "FOLLOWS", "to": "AlpineDaily"}, {"from": "Milano Ops", "title": "FOLLOWS", "to": "Volunteer_Mimi"}, {"from": "SkiKing_FR", "title": "FOLLOWS", "to": "Milano Ops"}, {"from": "IceDancePro", "title": "FOLLOWS", "to": "Milano Ops"}, {"from": "BiathlonFanatic", "title": "FOLLOWS", "to": "Milano Ops"}, {"from": "CortinaLover", "title": "FOLLOWS", "to": "Milano Ops"}, {"from": "Snowboard_Sam", "title": "FOLLOWS", "to": "Milano Ops"}, {"from": "HockeyDad99", "title": "FOLLOWS", "to": "Milano Ops"}, {"from": "SpeedSkater_NL", "title": "FOLLOWS", "to": "Milano Ops"}, {"from": "MedalTracker", "title": "FOLLOWS", "to": "Milano Ops"}, {"from": "BobsleighTeamGER", "title": "FOLLOWS", "to": "Milano Ops"}, {"from": "SwissSkiing", "title": "FOLLOWS", "to": "Milano Ops"}, {"from": "FigureSkating_JP", "title": "FOLLOWS", "to": "Milano Ops"}, {"from": "CurlingRocks", "title": "FOLLOWS", "to": "Milano Ops"}, {"from": "LugeMaster", "title": "FOLLOWS", "to": "Milano Ops"}, {"from": "TicketSeeker", "title": "FOLLOWS", "to": "Milano Ops"}, {"from": "SkiJump_POL", "title": "FOLLOWS", "to": "Milano Ops"}, {"from": "Freestyle_US", "title": "FOLLOWS", "to": "Milano Ops"}, {"from": "WinterMagic", "title": "FOLLOWS", "to": "Milano Ops"}, {"from": "IceHockey_FIN", "title": "FOLLOWS", "to": "Milano Ops"}, {"from": "GondolaGuy", "title": "FOLLOWS", "to": "Milano Ops"}, {"from": "ShortTrack_KR", "title": "FOLLOWS", "to": "Milano Ops"}, {"from": "SnowStormer", "title": "FOLLOWS", "to": "Milano Ops"}, {"from": "Beijing2022Vet", "title": "FOLLOWS", "to": "Milano Ops"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
