@@ -138,15 +138,17 @@ python app.py
 
 ## Captures d'écran
 
-> Ajoutez vos propres captures dans un dossier `screenshots/` :
+### Interface principale — 16 requêtes analytiques (Tkinter)
+![App Tkinter](screenshots/app_tkinter.png)
 
-<!-- 
-![Dashboard principal](screenshots/dashboard_main.png)
-![Analyse de sentiments](screenshots/sentiment_analysis.png)
-![Graphe Neo4j](screenshots/neo4j_graph.png)
--->
+### Top 10 des Hashtags (Matplotlib)
+![Hashtags Chart](screenshots/hashtags_chart.png)
 
-*Captures d'écran à venir — Lancez le dashboard pour voir l'interface en action.*
+### Graphe du réseau social (Pyvis + Neo4j)
+![Neo4j Graph](screenshots/neo4j_graph.png)
+
+### Analyse de Sentiments — IA (TextBlob NLP via Streamlit)
+![Sentiment Analysis](screenshots/sentiment_analysis.png)
 
 ---
 
